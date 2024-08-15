@@ -1,0 +1,50 @@
+if diffstam > 1
+    @setvar! needsStam 1 
+
+    if needsStam = 1 and findlayer self "outerbody" as PotionStore 
+        getlabel PotionStore PotionStoreLabel
+        if 'potion satchel' in PotionStoreLabel
+            if findtype "Red Potion" PotionStore as PotionRed
+                getlabel PotionRed PotionRedLabel
+                if 'next usable' in PotionRedLabel
+                    sysmsg 'FAILED: {{PotionRedLabel}}' 33          
+                else
+                    sysmsg "[Satchel] Drinking {{PotionRedLabel}}" 68
+                    dclick PotionRed
+                endif
+                @setvar! needsStam 0
+            endif
+        endif
+    endif
+        
+    if needsStam = 1 and findtype "alchemists satchel" backpack as PotionStore 
+        getlabel PotionStore PotionStoreLabel
+        if 'potion satchel' in PotionStoreLabel
+            if findtype "Red Potion" PotionStore as PotionRed
+                getlabel PotionRed PotionRedLabel
+                if 'next usable' in PotionRedLabel
+                    sysmsg 'FAILED: {{PotionRedLabel}}' 33          
+                else
+                    sysmsg "[Satchel] Drinking {{PotionRedLabel}}" 68
+                    dclick PotionRed
+                endif
+                @setvar! needsStam 0
+            endif
+        endif
+    endif 
+       
+    if needsStam = 1 and findtype "Red Potion" backpack as PotionRed
+        getlabel PotionRed PotionRedLabel
+        if 'next usable' in PotionRedLabel
+            sysmsg 'FAILED: {{PotionRedLabel}}' 33          
+        else
+            sysmsg "[Backpack] Drinking {{PotionRedLabel}}" 68
+            dclick PotionRed
+        endif
+        @setvar! needsStam 0
+    endif
+
+    if needStam = 1 
+        sysmsg 'No Red Potion found!' 33
+    endif
+endif
